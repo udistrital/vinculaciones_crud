@@ -5,7 +5,7 @@ API CRUD para la gestión de vinculaciones de entre terceros y de terceros con l
 Este proyecto está escrito en el lenguaje Go, generado mediante el framework [Beego](https://beego.me/).
 
 ## Modelo de Datos
-![entrada](https://github.com/udistrital/vinculaciones_crud/blob/test/sql/vinculaciones_imagen.png)
+![entrada](https://github.com/udistrital/vinculaciones_crud/blob/dev/sql/vinculaciones_imagen.png)
 
 ## Ejecución
 
