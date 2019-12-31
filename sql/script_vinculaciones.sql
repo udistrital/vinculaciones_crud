@@ -21,7 +21,8 @@ CREATE TABLE vinculaciones.tipo_vinculacion(
 	CONSTRAINT pk_tipo_vinculacion PRIMARY KEY (id),
     CONSTRAINT unique_nombre_tipo_vinculacion UNIQUE (nombre)
 );
-COMMENT ON TABLE vinculaciones.tipo_vinculacion IS 'Tabla que parametriza los vinculaciones.';
+
+COMMENT ON TABLE vinculaciones.tipo_vinculacion IS 'Tabla que parametriza los tipos de vinculaciones, siendo una tipo de vinculación la relación que posee un tercero con la Universidad.';
 COMMENT ON COLUMN vinculaciones.tipo_vinculacion.id IS 'Identificador unico de la tabla tipo_vinculacion.';
 COMMENT ON COLUMN vinculaciones.tipo_vinculacion.nombre IS 'Campo obligatorio de la tabla que indica el nombre del parámetro.';
 COMMENT ON COLUMN vinculaciones.tipo_vinculacion.descripcion IS 'Campo en el que se puede registrar una descripcion de la información de tipo_vinculacion.';
@@ -55,7 +56,7 @@ CREATE TABLE vinculaciones.cargos(
     CONSTRAINT unique_nombre_cargos UNIQUE (nombre)
 );
 
-COMMENT ON TABLE vinculaciones.cargos IS 'Tabla que parametriza los diferentes cargos.';
+COMMENT ON TABLE vinculaciones.cargos IS 'Tabla que parametriza los diferentes cargos que puede tener un tercero dentro de la Universidad.';
 COMMENT ON COLUMN vinculaciones.cargos.id IS 'Identificador unico de la tabla cargos.';
 COMMENT ON COLUMN vinculaciones.cargos.nombre IS 'Campo obligatorio de la tabla que indica el nombre del parámetro.';
 COMMENT ON COLUMN vinculaciones.cargos.descripcion IS 'Campo en el que se puede registrar una descripcion de la información de cargos.';
@@ -81,13 +82,31 @@ CREATE TABLE vinculaciones.vinculacion(
     tercero_relacionado_id integer,
     tipo_vinculacion_id integer NOT NULL,
     cargo_id integer,
-    fecha_inicio_vinculacion TIMESTAMP NOT NULL,
+	dependencia_id integer,
+	soporte integer,
+	periodo_id integer,	
+    fecha_inicio_vinculacion TIMESTAMP,
     fecha_fin_vinculacion TIMESTAMP,
+	activo boolean NOT NULL,
 	fecha_creacion TIMESTAMP,
 	fecha_modificacion TIMESTAMP,
 	CONSTRAINT pk_vinculacion PRIMARY KEY (id)    
 );
 
+COMMENT ON TABLE vinculaciones.vinculacion IS 'Tabla que muestra el histórico de vinculaciones que tiene un tercero, ya sea con otro tercero o con un cargo dentro de la universidad.';
+COMMENT ON COLUMN vinculaciones.vinculacion.id IS 'Identificador unico de la tabla vinculacion';
+COMMENT ON COLUMN vinculaciones.vinculacion.tercero_principal_id IS 'Campo obligatorio que referencia al esquema terceros. Indica qué tercero tiene una vinculación.';
+COMMENT ON COLUMN vinculaciones.vinculacion.tercero_relacionado_id IS 'Campo no obligatorio que referencia al esquema terceros. Es el tercero relacionado al tercero principal.';
+COMMENT ON COLUMN vinculaciones.vinculacion.tipo_vinculacion_id  IS 'Campo obligatorio que referencia a la tabla tipo_vinculación. Indica el tipo de vinculación que posee el tercero principal.';
+COMMENT ON COLUMN vinculaciones.vinculacion.cargo_id IS 'Campo no obligatorio que referencia a la tabla cargo. Indica, de aplicarse, qué cargo específico desempeña el tercero principal.';
+COMMENT ON COLUMN vinculaciones.vinculacion.dependencia_id IS 'Campo no obligatorio que referencia a esquema oikos. Indica la dependencia en la que el tercero principal desempeña la vinculación.';
+COMMENT ON COLUMN vinculaciones.vinculacion.soporte IS 'Campo no obligatorio que referencia a esquema documentos. Relaciona un documento que sirva de soporte para la vinculación indicada en el registro.';
+COMMENT ON COLUMN vinculaciones.vinculacion.periodo_id IS 'Campo no obligatorio que referencia a esquema parametros_estandar (tabla unidad). Indica, de ser válido para la vinculación, el periodo al que corresponde.';
+COMMENT ON COLUMN vinculaciones.vinculacion.fecha_inicio_vinculacion IS 'Campo no obligatorio que indica la fecha exacta del inicio de la vinculación del tercero. ';
+COMMENT ON COLUMN vinculaciones.vinculacion.fecha_fin_vinculacion IS 'Campo no obligatorio que indica la fecha exacta en la que termina la vinculación del tercero. ';
+COMMENT ON COLUMN vinculaciones.vinculacion.activo IS 'Campo obligatorio que indica el estado de la vinculación.';
+COMMENT ON COLUMN vinculaciones.vinculacion.fecha_creacion IS 'Fecha y hora de la creación del registro en la BD.';
+COMMENT ON COLUMN vinculaciones.vinculacion.fecha_modificacion IS 'Fecha y hora de la ultima modificación del registro en la BD.';
 
 ALTER TABLE vinculaciones.vinculacion ADD CONSTRAINT fk_vinculacion_tipo_vinculacion FOREIGN KEY (tipo_vinculacion_id)
 REFERENCES vinculaciones.tipo_vinculacion (id) MATCH FULL
