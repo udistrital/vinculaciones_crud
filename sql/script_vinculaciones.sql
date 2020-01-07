@@ -1,3 +1,4 @@
+--
 CREATE SCHEMA vinculaciones;
 
 CREATE SEQUENCE vinculaciones.tipo_vinculacion_id_seq
@@ -31,7 +32,6 @@ COMMENT ON COLUMN vinculaciones.tipo_vinculacion.activo IS 'Valor booleano para 
 COMMENT ON COLUMN vinculaciones.tipo_vinculacion.numero_orden IS 'En dado caso que se necesite establecer un orden a los registros que no se encuentre definido por aplicación ni por BD. Allí se almacena permitiendo realizar subitems mediante la precisión.';
 COMMENT ON COLUMN vinculaciones.tipo_vinculacion.fecha_creacion IS 'Fecha y hora de la creación del registro en la BD.';
 COMMENT ON COLUMN vinculaciones.tipo_vinculacion.fecha_modificacion IS 'Fecha y hora de la ultima modificación del registro en la BD.';
-
 
 
 CREATE SEQUENCE vinculaciones.cargos_id_seq
