@@ -20,7 +20,7 @@ func init() {
 // Run the migrations
 func (m *CrearTablaTipoVinculacion_20200107_121848) Up() {
 	// use m.SQL("CREATE TABLE ...") to make schema update
-	m.SQL("CREATE TABLE vinculaciones.tipo_vinculacion( id integer NOT NULL DEFAULT nextval('vinculaciones.tipo_vinculacion_id_seq'::regclass), nombre character varying(100) NOT NULL, descripcion character varying(100), codigo_abreviacion character varying(20), activo boolean NOT NULL, numero_orden numeric(5,2), fecha_creacion TIMESTAMP, fecha_modificacion TIMESTAMP, CONSTRAINT pk_tipo_vinculacion PRIMARY KEY (id), CONSTRAINT unique_nombre_tipo_vinculacion UNIQUE (nombre) );")
+	m.SQL("CREATE TABLE vinculaciones.tipo_vinculacion( id serial NOT NULL, nombre character varying(100) NOT NULL, descripcion character varying(100), codigo_abreviacion character varying(20), activo boolean NOT NULL, numero_orden numeric(5,2), fecha_creacion TIMESTAMP, fecha_modificacion TIMESTAMP, CONSTRAINT pk_tipo_vinculacion PRIMARY KEY (id), CONSTRAINT unique_nombre_tipo_vinculacion UNIQUE (nombre) );")
 	m.SQL("ALTER TABLE vinculaciones.tipo_vinculacion OWNER TO desarrollooas;")
 	m.SQL("COMMENT ON TABLE vinculaciones.tipo_vinculacion IS 'Tabla que parametriza los tipos de vinculaciones, siendo una tipo de vinculación la relación que posee un tercero con la Universidad.';")
 	m.SQL("COMMENT ON COLUMN vinculaciones.tipo_vinculacion.id IS 'Identificador unico de la tabla tipo_vinculacion.';")
