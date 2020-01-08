@@ -20,7 +20,7 @@ func init() {
 // Run the migrations
 func (m *CrearTablaCargos_20200107_122055) Up() {
 	// use m.SQL("CREATE TABLE ...") to make schema update
-	m.SQL("CREATE TABLE vinculaciones.cargos( id integer NOT NULL DEFAULT nextval('vinculaciones.cargos_id_seq'::regclass), nombre character varying(100) NOT NULL, descripcion character varying(100), codigo_abreviacion character varying(20), activo boolean NOT NULL, numero_orden numeric(5,2), fecha_creacion TIMESTAMP, fecha_modificacion TIMESTAMP, CONSTRAINT pk_cargos PRIMARY KEY (id), CONSTRAINT unique_nombre_cargos UNIQUE (nombre) );")
+	m.SQL("CREATE TABLE vinculaciones.cargos( id serial NOT NULL, nombre character varying(100) NOT NULL, descripcion character varying(100), codigo_abreviacion character varying(20), activo boolean NOT NULL, numero_orden numeric(5,2), fecha_creacion TIMESTAMP, fecha_modificacion TIMESTAMP, CONSTRAINT pk_cargos PRIMARY KEY (id), CONSTRAINT unique_nombre_cargos UNIQUE (nombre) );")
 	m.SQL("ALTER TABLE vinculaciones.cargos OWNER TO desarrollooas;")
 	m.SQL("COMMENT ON TABLE vinculaciones.cargos IS 'Tabla que parametriza los diferentes cargos que puede tener un tercero dentro de la Universidad.';")
 	m.SQL("COMMENT ON COLUMN vinculaciones.cargos.id IS 'Identificador unico de la tabla cargos.';")
